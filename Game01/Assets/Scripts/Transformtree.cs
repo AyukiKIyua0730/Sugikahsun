@@ -8,7 +8,7 @@ public class Transformtree : MonoBehaviour
     public float radius = 10f;
 
     Vector3 initPos;
-    float speed = 0.5f;
+    float speed =0.5f;
     Vector2 pos;
     bool push = false;
     private float totalTime = 0f;
@@ -28,13 +28,13 @@ public class Transformtree : MonoBehaviour
     }
     void Update()
     {
-        totalTime += Time.deltaTime;
+        //totalTime = Time.deltaTime;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             push = true;
             speed += 0.001f;
             
-            float phase = speed*totalTime * Mathf.PI;
+            float phase = speed* Time.deltaTime * Mathf.PI;
             
             float xPos = radius * Mathf.Cos(phase);
             float yPos = radius * Mathf.Sin(phase);
@@ -48,7 +48,7 @@ public class Transformtree : MonoBehaviour
             push = true;
             speed -= 0.001f;
 
-            float phase = speed * totalTime * Mathf.PI;
+            float phase = speed * Time.deltaTime * Mathf.PI;
             float xPos = radius * Mathf.Cos(phase);
             float yPos = radius * Mathf.Sin(phase);
       
@@ -61,13 +61,13 @@ public class Transformtree : MonoBehaviour
         }
         if (push == false)
         {
-            totalTime *= 0.1f;
+            totalTime = 0f;
             if (initPos.x < pos.x)
             {
-               
+                Debug.Log("A");
                 speed += 0.000333f;
-
-                float phase = speed * totalTime * Mathf.PI;
+               
+                float phase = speed  * Mathf.PI;
 
                 float xPos = radius * Mathf.Cos(phase);
                 float yPos = radius * Mathf.Sin(phase);
@@ -78,8 +78,8 @@ public class Transformtree : MonoBehaviour
             else if (initPos.x > pos.x)
             {
                 speed -= 0.000333f;
-
-                float phase = speed * totalTime * Mathf.PI;
+               
+                float phase = speed  * Mathf.PI;
 
                 float xPos = radius * Mathf.Cos(phase);
                 float yPos = radius * Mathf.Sin(phase);
