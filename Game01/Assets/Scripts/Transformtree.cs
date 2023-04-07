@@ -30,7 +30,10 @@ public class Transformtree : MonoBehaviour
     bool push = false;
     private float totalTime = 0f;
     private float Addforce = 0f;
+    private float angularVelocity = 0f;
+    private float angularAcceleration=0f;
     [SerializeField] GameObject target;
+
     void Start()
     {
 
@@ -53,8 +56,9 @@ public class Transformtree : MonoBehaviour
             push = true;
             Addforce += 0.00001f;
             Addforce += Time.deltaTime;
+
             
-            gameObject.transform.RotateAround(target.transform.position, Vector3.forward, 10f * Time.deltaTime*Addforce);
+            gameObject.transform.RotateAround(target.transform.position, Vector3.forward, 10f * Time.deltaTime * Addforce);
             pos = gameObject.transform.position;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
@@ -75,28 +79,49 @@ public class Transformtree : MonoBehaviour
         if (push == false)
         {
             
-            if (initPos.x < pos.x)
+           angularVelocity += (angularAcceleration * Time.deltaTime);
+            gameObject.transform.RotateAround(target.transform.position, Vector3.forward, angularVelocity);
+            pos = gameObject.transform.position;
+            if (pos.x > target.transform.position.x)
             {
                 Debug.Log("A");
+                Addforce -= (Addforce*0.25f);
+                angularAcceleration = Addforce;
                 
-              
+            }
+            else
+            {
+                Debug.Log("B");
+                Addforce += (Addforce * 0.25f);
+                angularAcceleration = -Addforce;
+               
+            }
+
+
+
+            /*if (initPos.x < pos.x)
+            {
+                Debug.Log("A");
+
+                Addforce = 0.0000f;
                 Addforce += Time.deltaTime;
 
                 // gameObject.transform.position = pos;
-                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, 10f * Time.deltaTime * Addforce);
+                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, 10f * Time.deltaTime / Addforce);
                 pos = gameObject.transform.position;
                 push = false;
             }
             else if (initPos.x > pos.x)
             {
                 Debug.Log("B");
-                
-                Addforce -= Time.deltaTime;
 
-                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, -10f * Time.deltaTime * Addforce);
+                Addforce = 0.0000f;
+                Addforce += Time.deltaTime;
+
+                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, -10f * Time.deltaTime / Addforce);
                 pos = gameObject.transform.position;
                 push = false;
-            }
+            }*/
         }
 
 
