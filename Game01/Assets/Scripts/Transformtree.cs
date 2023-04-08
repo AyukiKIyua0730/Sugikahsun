@@ -79,7 +79,7 @@ public class Transformtree : MonoBehaviour
         if (push == false)
         {
             
-           angularVelocity += (angularAcceleration * Time.deltaTime);
+            angularVelocity += (angularAcceleration * Time.deltaTime);
             gameObject.transform.RotateAround(target.transform.position, Vector3.forward, angularVelocity);
             pos = gameObject.transform.position;
             if (pos.x > target.transform.position.x)
