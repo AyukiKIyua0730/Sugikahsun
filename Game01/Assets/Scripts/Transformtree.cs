@@ -24,9 +24,9 @@ public class Transformtree : MonoBehaviour
     }*/
     public float radius = 10f;
 
-    Vector3 initPos;
+    private Vector3 initPos;
     float speed =0f;
-    Vector2 pos;
+    private Vector2 pos;
     bool push = false;
     private float totalTime = 0f;
     private float Addforce = 0f;
@@ -38,15 +38,16 @@ public class Transformtree : MonoBehaviour
     {
 
         
-        float phase = 0.5f * Mathf.PI;
+        /*float phase = 0.5f * Mathf.PI;
 
         float xPos = radius * Mathf.Cos(phase);
         float yPos = radius * Mathf.Sin(phase);
 
         pos = new Vector2(xPos, yPos);
         gameObject.transform.position = pos;
-
+        */
         initPos = gameObject.transform.position;
+        
     }
     void Update()
     {
@@ -85,19 +86,19 @@ public class Transformtree : MonoBehaviour
             if (pos.x > target.transform.position.x)
             {
                 Debug.Log("A");
-                Addforce -= (Addforce*0.25f);
+                Addforce *= 0.85f;
                 angularAcceleration = Addforce;
                 
             }
             else
             {
                 Debug.Log("B");
-                Addforce += (Addforce * 0.25f);
+
+                Addforce *=  0.85f;
                 angularAcceleration = -Addforce;
                
             }
-
-
+            Debug.Log(Addforce);
 
             /*if (initPos.x < pos.x)
             {
