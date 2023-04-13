@@ -80,23 +80,28 @@ public class Transformtree : MonoBehaviour
         if (push == false)
         {
             
-            angularVelocity += (angularAcceleration * Time.deltaTime);
-            gameObject.transform.RotateAround(target.transform.position, Vector3.forward, angularVelocity);
-            pos = gameObject.transform.position;
             if (pos.x > target.transform.position.x)
             {
                 Debug.Log("A");
+               
+                
                 Addforce *= 0.85f;
                 angularAcceleration = Addforce;
-                
+                angularVelocity += (angularAcceleration * Time.deltaTime);
+                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, angularVelocity);
+                pos = gameObject.transform.position;
             }
             else
             {
                 Debug.Log("B");
 
-                Addforce *=  0.85f;
-                angularAcceleration = -Addforce;
-               
+
+                
+                Addforce *= 0.85f;
+                angularAcceleration = Addforce;
+                angularVelocity -= (angularAcceleration * Time.deltaTime);
+                gameObject.transform.RotateAround(target.transform.position, Vector3.forward, angularVelocity);
+                pos = gameObject.transform.position;
             }
             Debug.Log(Addforce);
 

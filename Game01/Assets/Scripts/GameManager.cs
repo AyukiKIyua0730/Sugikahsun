@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    private void Awake()
+    /*private void Awake()
     {
         if (_instance != null && _instance != this)
         {
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
-    }
+    }*/
 
     // シーン遷移するメソッドを実装
     public void LoadScene(string sceneName)
