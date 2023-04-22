@@ -11,7 +11,7 @@ public class Counter : MonoBehaviour
     public GameObject SceneChange;
 
    
-    public float countdown = 18.0f;
+    public float countdown = 60.0f;
     public int score_num = 0;
     // Start is called before the first frame update
     void Start()
