@@ -21,11 +21,23 @@ public class enemyscript : MonoBehaviour
     private GameObject child;
 
     public GameObject CounterObject;
+    public GameObject CounterObject2;
+    public GameObject AddtimeObject;
+    private Animator anim;
+    private Animator anim2;
 
+    private Text addtime_text;
     Counter counter;
+
+    int c = 0;
+    
+    float b = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
+        addtime_text = AddtimeObject.GetComponent<Text>();
+        anim = AddtimeObject.GetComponent<Animator>();
+        anim2 = CounterObject2.GetComponent<Animator>();
         counter = CounterObject.GetComponent<Counter>();
         for (i = 0; i < 3; i++)
         {
@@ -60,11 +72,13 @@ public class enemyscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        anim.SetBool("add", false);
+        anim2.SetBool("count", false);
     }
 
     public void damage(float damage)
     {
+        
         i = 0;
         for (i = 0; i < 5; i++)
         {
@@ -78,16 +92,30 @@ public class enemyscript : MonoBehaviour
             
             if(currentHp[i]<=0)
             {
-                counter.countdown += 3.0f;
+                c++;
+                b += 3.0f;
                 counter.score_num+=1;
+                anim2.SetBool("count", true);
                 delete(i);
             }
+        }
+
+        if(c>=1)
+        {
+            addtime_text.text = "+"+b.ToString("f1");
+            anim.SetBool("add", true);
+            
+            counter.countdown += b;
+            b = 0.0f;
+            c = 0;
         }
 
     }
 
     public void delete(int a)
     {
+        
+        
         //å≥ÇÃHP*0.5Å`1.5f
         float r = Random.Range(1.0f, 1.5f);
         //float dHP = (float)counter.score_num * r;
