@@ -13,11 +13,12 @@ public class Meter : MonoBehaviour
     public Slider slider;
     public GameObject damageObject;
     public GameObject triggerObject;
+    public GameObject startObject;
     private bool damagetrigger;
 
     public GameObject SceneChange;
 
-
+    Startscript startscript;
     void Start()
     {
         damagetrigger = false;
@@ -35,96 +36,102 @@ public class Meter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyscript d1 = damageObject.GetComponent<enemyscript>();
-        Transform tTransform = triggerObject.transform;
-        Vector2 v = tTransform.position;
-        GameManager s1 = this.GetComponent<GameManager>();
-        if (Input.GetKey(KeyCode.LeftArrow))
+        startscript = startObject.GetComponent<Startscript>();
+        if(startscript.ready != false)
         {
-            damage *= 1.001f;
-            currentHp = currentHp - damage;
-        if (damagetrigger == false)
-        {
+            enemyscript d1 = damageObject.GetComponent<enemyscript>();
 
-            if (currentHp <= -2500.0f)
+            Transform tTransform = triggerObject.transform;
+            Vector2 v = tTransform.position;
+            GameManager s1 = this.GetComponent<GameManager>();
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                    v = new Vector2(9f, -3.5f);
-                    tTransform.position = v;
-                    d1.damage(10f);
-                damagetrigger = true;
-            }
-        }
-            //Debug.Log("After currentHp : " + currentHp);
+                damage *= 1.001f;
+                currentHp = currentHp - damage;
+                if (damagetrigger == false)
+                {
 
-            //Å‘åHP‚É‚¨‚¯‚éŒ»Ý‚ÌHP‚ðSlider‚É”½‰fB
-            //int“¯Žm‚ÌŠ„‚èŽZ‚Í¬”“_ˆÈ‰º‚Í0‚É‚È‚é‚Ì‚ÅA
-            //(float)‚ð‚Â‚¯‚Äfloat‚Ì•Ï”‚Æ‚µ‚ÄU•‘‚í‚¹‚éB
-            slider.value = (float)currentHp / (float)maxHp; ;
-            //Debug.Log("slider.value : " + slider.value);
-            if ((slider.value >= 1)|| (slider.value <= -1))
+                    if (currentHp <= -2500.0f)
+                    {
+                        v = new Vector2(9f, -3.5f);
+                        tTransform.position = v;
+                        d1.damage(10f);
+                        damagetrigger = true;
+                    }
+                }
+                //Debug.Log("After currentHp : " + currentHp);
+
+                //Å‘åHP‚É‚¨‚¯‚éŒ»Ý‚ÌHP‚ðSlider‚É”½‰fB
+                //int“¯Žm‚ÌŠ„‚èŽZ‚Í¬”“_ˆÈ‰º‚Í0‚É‚È‚é‚Ì‚ÅA
+                //(float)‚ð‚Â‚¯‚Äfloat‚Ì•Ï”‚Æ‚µ‚ÄU•‘‚í‚¹‚éB
+                slider.value = (float)currentHp / (float)maxHp; ;
+                //Debug.Log("slider.value : " + slider.value);
+                if ((slider.value >= 1) || (slider.value <= -1))
+                {
+                    s1.LoadScene("Result");
+
+                }
+
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
-                s1.LoadScene("Result");
-               
-            }
+                damage *= 1.001f;
+                currentHp = currentHp + damage;
+                if (damagetrigger == true)
+                {
+                    if (currentHp >= 2500.0f)
+                    {
 
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            damage *= 1.001f;
-            currentHp = currentHp + damage;
-        if (damagetrigger == true)
-        {
-            if (currentHp >= 2500.0f)
+                        v = new Vector2(5f, -3.5f);
+                        tTransform.position = v;
+                        d1.damage(10f);
+                        damagetrigger = false;
+                    }
+                }
+                //Debug.Log("After currentHp : " + currentHp);
+
+
+                slider.value = (float)currentHp / (float)maxHp;
+                //Debug.Log("slider.value : " + slider.value);
+                if ((slider.value >= 1) || (slider.value <= -1))
+                {
+                    s1.LoadScene("Result");
+
+                }
+            }
+            else
             {
 
-                    v = new Vector2(5f, -3.5f);
-                    tTransform.position = v;
-                    d1.damage(10f);
-                damagetrigger = false;
-            }
-        }
-            //Debug.Log("After currentHp : " + currentHp);
-
-            
-            slider.value = (float)currentHp / (float)maxHp; 
-            //Debug.Log("slider.value : " + slider.value);
-            if ((slider.value >= 1) || (slider.value <= -1))
-            {
-                s1.LoadScene("Result");
-               
-            }
-        }
-        else
-        {
-            
-                if(currentHp<=0)
+                if (currentHp <= 0)
                 {
                     if (damage > 1.0f)
                     {
-                    damage *= 0.99f;
+                        damage *= 0.99f;
                     }
                     currentHp = currentHp + damage;
-                    
 
-                    
+
+
                 }
-                else if(currentHp >= 0)
+                else if (currentHp >= 0)
                 {
-                if (damage > 1.0f)
-                {
-                    damage *= 0.99f;
-                }
-                currentHp = currentHp - damage;
-                    
+                    if (damage > 1.0f)
+                    {
+                        damage *= 0.99f;
+                    }
+                    currentHp = currentHp - damage;
 
-                    
+
+
                 }
 
-                
-                slider.value = (float)currentHp / (float)maxHp; 
-                
-            //}
-           
+
+                slider.value = (float)currentHp / (float)maxHp;
+
+                //}
+
+            }
         }
+        
     }
 }
