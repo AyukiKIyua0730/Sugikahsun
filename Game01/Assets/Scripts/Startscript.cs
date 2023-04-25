@@ -7,10 +7,12 @@ public class Startscript : MonoBehaviour
 {
     public GameObject Readygo;
     public bool ready;
-    private Text ready_text;
+    public Text ready_text;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
+        anim = Readygo.GetComponent<Animator>();
         ready = false;
         StartCoroutine("Corou1");
         
@@ -28,10 +30,13 @@ public class Startscript : MonoBehaviour
         
         Debug.Log("スタート");
             yield return new WaitForSeconds(2.0f);
+        
         ready_text.text = "GO!!!";
         yield return new WaitForSeconds(3.0f);
-        Readygo.gameObject.SetActive(false);
+        anim.Play("Animetor/Ready Animation", 0, 0.8f);
+        //Readygo.gameObject.SetActive(false);
         ready = true;
+
         Debug.Log("スタートから5秒後");
         }
 }

@@ -19,6 +19,8 @@ public class Meter : MonoBehaviour
     public GameObject SceneChange;
 
     Startscript startscript;
+
+    GameManager s1;
     void Start()
     {
         damagetrigger = false;
@@ -43,7 +45,7 @@ public class Meter : MonoBehaviour
 
             Transform tTransform = triggerObject.transform;
             Vector2 v = tTransform.position;
-            GameManager s1 = this.GetComponent<GameManager>();
+            s1 = this.GetComponent<GameManager>();
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 damage *= 1.001f;
@@ -68,7 +70,8 @@ public class Meter : MonoBehaviour
                 //Debug.Log("slider.value : " + slider.value);
                 if ((slider.value >= 1) || (slider.value <= -1))
                 {
-                    s1.LoadScene("Result");
+                    StartCoroutine("End");
+                  //  s1.LoadScene("Result");
 
                 }
 
@@ -95,7 +98,8 @@ public class Meter : MonoBehaviour
                 //Debug.Log("slider.value : " + slider.value);
                 if ((slider.value >= 1) || (slider.value <= -1))
                 {
-                    s1.LoadScene("Result");
+                    StartCoroutine("End");
+                   // s1.LoadScene("Result");
 
                 }
             }
@@ -133,5 +137,20 @@ public class Meter : MonoBehaviour
             }
         }
         
+    }
+
+    IEnumerator End() //コルーチン関数の名前
+    {
+
+        startscript.ready = false;
+        startscript.Readygo.gameObject.SetActive(true);
+        startscript.ready_text.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+        startscript.ready_text.text = "終了！!!";
+        yield return new WaitForSeconds(3.0f);
+        s1.LoadScene("Result");
+
+
     }
 }

@@ -94,7 +94,7 @@ public class enemyscript : MonoBehaviour
             {
                 c++;
                 b += 3.0f;
-                counter.score_num+=1;
+                Scorenum.score_num+=1;
                 anim2.SetBool("count", true);
                 delete(i);
             }
