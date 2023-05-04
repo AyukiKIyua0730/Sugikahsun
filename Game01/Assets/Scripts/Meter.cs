@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class Meter : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+    [SerializeField]
+    AudioClip clip2;
+
     float maxHp = 5000;
     float currentHp;
     float damage = 1.0f;
@@ -14,8 +21,11 @@ public class Meter : MonoBehaviour
     public GameObject damageObject;
     public GameObject triggerObject;
     public GameObject startObject;
+    public GameObject rotateObject;
+    public GameObject overObject;
     private bool damagetrigger;
-
+    private float angle;
+    private float _rotateSpeed=1.0f;
     public GameObject SceneChange;
 
     Startscript startscript;
@@ -48,7 +58,10 @@ public class Meter : MonoBehaviour
             s1 = this.GetComponent<GameManager>();
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                _rotateSpeed *= 1.001f;
+                angle += _rotateSpeed * Time.deltaTime;
                 damage *= 1.001f;
+                rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                 currentHp = currentHp - damage;
                 if (damagetrigger == false)
                 {
@@ -78,7 +91,10 @@ public class Meter : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
+                _rotateSpeed *= 1.001f;
+                angle -= _rotateSpeed * Time.deltaTime;
                 damage *= 1.001f;
+                rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                 currentHp = currentHp + damage;
                 if (damagetrigger == true)
                 {
@@ -110,10 +126,12 @@ public class Meter : MonoBehaviour
                 {
                     if (damage > 1.0f)
                     {
+                        _rotateSpeed *= 0.99f;
+                        angle -= _rotateSpeed * Time.deltaTime;
                         damage *= 0.99f;
                     }
                     currentHp = currentHp + damage;
-
+                    rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
 
 
                 }
@@ -121,10 +139,12 @@ public class Meter : MonoBehaviour
                 {
                     if (damage > 1.0f)
                     {
+                        _rotateSpeed *= 0.99f;
+                        angle += _rotateSpeed * Time.deltaTime;
                         damage *= 0.99f;
                     }
                     currentHp = currentHp - damage;
-
+                    rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
 
 
                 }
@@ -141,7 +161,9 @@ public class Meter : MonoBehaviour
 
     IEnumerator End() //コルーチン関数の名前
     {
-
+        soundManager.PlaySe(clip2);
+        soundManager.StopBgm(clip);
+        overObject.SetActive(true);
         startscript.ready = false;
         startscript.Readygo.gameObject.SetActive(true);
         startscript.ready_text.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);

@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class enemyscript : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+
+
+    [SerializeField]
+    private Sprite[] ofsImage;
+
+    private Sprite spriteMae;
     public GameObject[] PrefabCube= new GameObject[5];
 
     private GameObject[] obj = new GameObject[5];
@@ -32,6 +42,7 @@ public class enemyscript : MonoBehaviour
     int c = 0;
     
     float b = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +50,7 @@ public class enemyscript : MonoBehaviour
         anim = AddtimeObject.GetComponent<Animator>();
         anim2 = CounterObject2.GetComponent<Animator>();
         counter = CounterObject.GetComponent<Counter>();
+        
         for (i = 0; i < 3; i++)
         {
             maxHP[i] = 20f;
@@ -49,7 +61,7 @@ public class enemyscript : MonoBehaviour
             slider[i] = child.GetComponent<Transform>().transform.GetChild(0).gameObject;
             slider2[i] = slider[i].GetComponent<Slider>();
             x += 4.5f;
-            
+            Imagechange(i);
 
         }
         x = -6.0f;
@@ -65,7 +77,7 @@ public class enemyscript : MonoBehaviour
             slider[i] = child.GetComponent<Transform>().transform.GetChild(0).gameObject;
             slider2[i] = slider[i].GetComponent<Slider>();
             x += 4.5f;
-
+            Imagechange(i);
         }
     }
 
@@ -92,11 +104,19 @@ public class enemyscript : MonoBehaviour
             
             if(currentHp[i]<=0)
             {
+                //Vector3 x2 = obj[i].transform.position;
+                //Vector3 pos = new Vector3(-20, obj[i].transform.position.y, 0);
+                //obj[i].transform.position = Vector3.MoveTowards(x2, pos, 3.5f * Time.deltaTime);
+                Imagechange(i);
                 c++;
                 b += 3.0f;
                 Scorenum.score_num+=1;
+                soundManager.PlaySe(clip);
                 anim2.SetBool("count", true);
+                
                 delete(i);
+                //Invoke(nameof(DelayMethod), 3.5f);
+                
             }
         }
 
@@ -114,7 +134,7 @@ public class enemyscript : MonoBehaviour
 
     public void delete(int a)
     {
-        
+
         
         //Œ³‚ÌHP*0.5`1.5f
         float r = Random.Range(1.0f, 1.5f);
@@ -126,7 +146,20 @@ public class enemyscript : MonoBehaviour
     }
 
 
+    public void Imagechange(int number)
+    {
+        
+       
+   
+        spriteMae = ofsImage[Random.Range(0, 5)];
+        
+        obj[number].gameObject.GetComponent<SpriteRenderer>().sprite = spriteMae;
+    }
 
-
-
+    /*void DelayMethod()
+    {
+        
+        obj[i].transform.position = Vector3.MoveTowards(obj[i].transform.position, x2, 10.0f * Time.deltaTime);
+        Debug.Log("Delay call");
+    }*/
 }

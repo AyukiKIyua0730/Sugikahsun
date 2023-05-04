@@ -15,6 +15,8 @@ public static class Scorenum
 public class Counter : MonoBehaviour
 {
     
+
+
     public GameObject score_object;
     public GameObject time_object;
    

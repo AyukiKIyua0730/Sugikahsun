@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Startscript : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+
+
     public GameObject Readygo;
     public bool ready;
     public Text ready_text;
@@ -36,7 +42,7 @@ public class Startscript : MonoBehaviour
         anim.Play("Animetor/Ready Animation", 0, 0.8f);
         //Readygo.gameObject.SetActive(false);
         ready = true;
-
+        soundManager.PlayBgm(clip);
         Debug.Log("スタートから5秒後");
         }
 }
