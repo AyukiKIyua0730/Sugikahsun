@@ -314,6 +314,12 @@ MonoBehaviour:
   - {fileID: 8800560830805111722, guid: 70dfded00a4532341b71c1749a4d857d, type: 3}
   - {fileID: 8800560830805111722, guid: 70dfded00a4532341b71c1749a4d857d, type: 3}
   - {fileID: 8800560830805111722, guid: 70dfded00a4532341b71c1749a4d857d, type: 3}
+  PrefabCube2:
+  - {fileID: 7866519221744475758, guid: d86df3287faa4a841985f463cd7d4ca9, type: 3}
+  - {fileID: 7866519221744475758, guid: d86df3287faa4a841985f463cd7d4ca9, type: 3}
+  - {fileID: 7866519221744475758, guid: d86df3287faa4a841985f463cd7d4ca9, type: 3}
+  - {fileID: 7866519221744475758, guid: d86df3287faa4a841985f463cd7d4ca9, type: 3}
+  - {fileID: 7866519221744475758, guid: d86df3287faa4a841985f463cd7d4ca9, type: 3}
   CounterObject: {fileID: 477351390}
   CounterObject2: {fileID: 2050120596}
   AddtimeObject: {fileID: 1698618704}

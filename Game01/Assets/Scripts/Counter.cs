@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public static class Scorenum
 {
     public static int score_num = 0;
-
+    
 }
 
 

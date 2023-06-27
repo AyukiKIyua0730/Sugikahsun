@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public static class result
+{
+    public static int resulttri = 0;
+
+}
 
 public class Meter : MonoBehaviour
 {
@@ -33,6 +38,7 @@ public class Meter : MonoBehaviour
     GameManager s1;
     void Start()
     {
+        result.resulttri = 0;
         damagetrigger = false;
 
         
@@ -167,7 +173,7 @@ public class Meter : MonoBehaviour
         startscript.ready = false;
         startscript.Readygo.gameObject.SetActive(true);
         startscript.ready_text.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-
+        result.resulttri = -1;
 
         startscript.ready_text.text = "èIóπÅI!!";
         yield return new WaitForSeconds(3.0f);
