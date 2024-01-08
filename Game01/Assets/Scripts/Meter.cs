@@ -66,7 +66,7 @@ public class Meter : MonoBehaviour
             {
                 _rotateSpeed *= 1.001f;
                 angle += _rotateSpeed * Time.deltaTime;
-                damage *= 1.001f;
+                damage *= 1.005f;
                 rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                 currentHp = currentHp - damage;
                 if (damagetrigger == false)
@@ -74,7 +74,7 @@ public class Meter : MonoBehaviour
 
                     if (currentHp <= -2500.0f)
                     {
-                        v = new Vector2(9f, -3.5f);
+                        v = new Vector2(6.3f, -3.2f);
                         tTransform.position = v;
                         d1.damage(10f);
                         damagetrigger = true;
@@ -99,7 +99,7 @@ public class Meter : MonoBehaviour
             {
                 _rotateSpeed *= 1.001f;
                 angle -= _rotateSpeed * Time.deltaTime;
-                damage *= 1.001f;
+                damage *= 1.005f;
                 rotateObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                 currentHp = currentHp + damage;
                 if (damagetrigger == true)
@@ -107,7 +107,7 @@ public class Meter : MonoBehaviour
                     if (currentHp >= 2500.0f)
                     {
 
-                        v = new Vector2(5f, -3.5f);
+                        v = new Vector2(2.3f, -3.2f);
                         tTransform.position = v;
                         d1.damage(10f);
                         damagetrigger = false;
